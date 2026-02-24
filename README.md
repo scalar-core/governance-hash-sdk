@@ -19,6 +19,8 @@
 
 ---
 
+
+
 ## 🌍 Ecosystem & Roadmap
 
 We are building the universal standard for AI operational integrity. Our architecture is designed to support any autonomous system, from open-source orchestrators to proprietary enterprise platforms.
@@ -41,40 +43,4 @@ We are building the universal standard for AI operational integrity. Our archite
 **Python (LangChain, CrewAI)**
 ```bash
 pip install governance-hash-sdk
-TypeScript (LangChain.js)
-
-Bash
-npm install @scalar-os/governance-hash-sdk
-🚀 Quick Start (LangChain)
-Python
-from governance_hash_sdk.langchain import ScalarCallbackHandler
-
-# 1. Initialize the handler with your specific policy guardrails
-handler = ScalarCallbackHandler(agent_id="finance_agent_01", policy_ref="ops-policy-strict")
-
-# 2. Run your agent. The SDK silently hashes and links the execution steps.
-response = agent.run("Process refund for invoice #99281", callbacks=[handler])
-
-# 3. Retrieve the cryptographic proof
-print(f"Terminal Hash: {handler.latest_hash}")
-```bash
----
-
-## 🏗️ Architecture: The Open Core Philosophy
-This SDK operates entirely offline. It represents the Open Core of the SCALAR OS ecosystem. You can generate, verify, and store your cryptographic chains locally forever, for free.
-
-For enterprises requiring automated ISO 42001 certification, multi-tenant dashboards, or Automated Audit Ledger (AAL) PDF exports, the SDK natively supports optional telemetry syncing to the SCALAR OS Platform.
-
----
-
-## 📄 License
-Apache License 2.0 — Copyright 2026 SCALAR OS Inc.
-
-
-***
-
-### Why this structure works for Enterprise Open Source:
-1. **The Ecosystem & Roadmap Section:** By listing Microsoft and Google alongside open-source tools, you signal to enterprise architects that SCALAR is not just a niche Python library, but an infrastructure-level standard designed for massive, multi-cloud deployments.
-2. **The Open Core Clarification:** Explicitly stating that the SDK operates entirely offline disarms security engineers immediately. They know they can trust the tool without exposing their network.
-
-Would you like me to draft the specific GitHub Issues (with detailed technical acceptance criteri
+--
