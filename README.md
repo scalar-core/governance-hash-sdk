@@ -58,12 +58,16 @@ response = agent.run("Process refund for invoice #99281", callbacks=[handler])
 # 3. Retrieve the cryptographic proof
 print(f"Terminal Hash: {handler.latest_hash}")
 
-🏗️ Architecture: The Open Core Philosophy
+---
+
+## 🏗️ Architecture: The Open Core Philosophy
 This SDK operates entirely offline. It represents the Open Core of the SCALAR OS ecosystem. You can generate, verify, and store your cryptographic chains locally forever, for free.
 
 For enterprises requiring automated ISO 42001 certification, multi-tenant dashboards, or Automated Audit Ledger (AAL) PDF exports, the SDK natively supports optional telemetry syncing to the SCALAR OS Platform.
 
-📄 License
+---
+
+## 📄 License
 Apache License 2.0 — Copyright 2026 SCALAR OS Inc.
 
 
