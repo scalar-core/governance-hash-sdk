@@ -1,0 +1,73 @@
+name: SCALAR Insurable AI Evals (ISO 42001 Readiness)
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'tests/evals/**'
+      - 'governance-hash-sdk/**'
+
+jobs:
+  evaluate-agent-integrity:
+    name: Grader Triad — Insurable Eval Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install SCALAR SDK & Eval Dependencies
+        run: |
+          pip install governance-hash-sdk pytest pytest-asyncio
+
+      - name: "Phase 1 & 2 — Cryptographic & Compliance Gates"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SCALAR_PRIVATE_KEY: ${{ secrets.SCALAR_PRIVATE_KEY }}
+        run: |
+          echo "Starting ISO 42001 compliance audits..."
+          pytest tests/evals/test_compliance.py --strict-markers -v
+
+      - name: "Phase 3 — Functional Capabilities"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "Evaluating business problem resolution..."
+          pytest tests/evals/test_functional.py -v || echo "Functional warnings detected (non-blocking)."
+
+      - name: Issue SCALAR Certification Badge
+        if: success()
+        run: |
+          echo "All compliance gates passed."
+
+      # -- AUTOMATED AUDIT LEDGER (AAL) -- Proof of Compliance --
+
+      - name: Generate Compliance Evidence (Markdown)
+        if: always()
+        run: |
+          echo "Generating ISO 42001 Proof of Compliance..."
+          python scripts/generate_audit_report.py \
+            --commit ${{ github.sha }} \
+            --run-id ${{ github.run_id }} \
+            --output evidence.md
+
+      - name: Convert Evidence to PDF
+        if: always()
+        uses: baileyjm02/markdown-to-pdf@v1
+        with:
+          input_path: evidence.md
+          output_dir: artifacts/
+          theme: github
+
+      - name: Upload ISO 42001 Proof of Compliance (PDF)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scalar-compliance-proof-${{ github.sha }}
+          path: artifacts/evidence.pdf
+          retention-days: 90
