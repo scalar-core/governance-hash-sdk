@@ -57,7 +57,7 @@ response = agent.run("Process refund for invoice #99281", callbacks=[handler])
 
 # 3. Retrieve the cryptographic proof
 print(f"Terminal Hash: {handler.latest_hash}")
-
+```bash
 ---
 
 ## 🏗️ Architecture: The Open Core Philosophy
